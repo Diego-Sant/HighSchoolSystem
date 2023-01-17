@@ -370,16 +370,16 @@ public class Project extends JFrame implements ActionListener {
 		String msg = actionEvent.getActionCommand();
 
 		if (msg.equals("Novo professor")) {
-			// new AddTeacher().f.setVisible(true);
+			new AddTeacher().setVisible(true);
 
 		} else if (msg.equals("Novo aluno")) {
-			// new AddStudent().f.setVisible(true);
+			new AddStudent().setVisible(true);
 
 		} else if (msg.equals("Detalhes dos professores")) {
-			// new TeacherDetails().setVisible(true);
+			new TeacherDetails().setVisible(true);
 
 		} else if (msg.equals("Detalhes dos alunos")) {
-			// new StudentDetails().setVisible(true);
+			new StudentDetails().setVisible(true);
 
 		} else if (msg.equals("Atualizar professores")) {
 			// new UpdateTeacher().f.setVisible(true);

@@ -32,22 +32,22 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.text.MaskFormatter;
 
-public class AddTeacher extends JFrame implements ActionListener {
+public class AddStudent extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
 	JPanel jp;
 	JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13;
-	JTextField t1, t2, t3, t4, t5, t6, t7, t8, t9;
+	JTextField t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
 	JButton b1, b2;
-	JComboBox<String> c1, c2, c3, c4;
+	JComboBox<String> c3, c4;
 
 	Random ran = new Random();
-	long rn = (ran.nextLong() % 9000L) + 10000L;
+	long rn = (ran.nextLong() % 9000L) + 100000L;
 	long random = Math.abs(rn);
 
-	AddTeacher() {
-		super("Adicionar professor(a)");
+	AddStudent() {
+		super("Adicionar aluno(a)");
 		jp = new JPanel();
 		setSize(900, 700);
 		jp.setLayout(null);
@@ -59,7 +59,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 		jp.setBounds(0, 0, 883, 660);
 		jp.setBackground(new Color(18, 18, 18));
 		jp.setBorder(new TitledBorder(new LineBorder(new Color(98, 0, 238), 2), // ((r: g: b:), thickness)
-				"Adicionar professor(a)", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(55, 0, 179)));
+				"Adicionar aluno(a)", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(55, 0, 179)));
 		add(jp);
 		
 		MetalLookAndFeel.setCurrentTheme(new javax.swing.plaf.metal.OceanTheme() {
@@ -71,7 +71,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 
 		// ---------------------------------------------------------------------------------
 
-		l13 = new JLabel("Adicionar professor(a)");
+		l13 = new JLabel("Adicionar aluno(a)");
 		l13.setForeground(Color.BLACK);
 		l13.setFont(new Font("futura", Font.BOLD, 20));
 		l13.setBounds(335, 54, 240, 30);
@@ -236,55 +236,36 @@ public class AddTeacher extends JFrame implements ActionListener {
 
 		// ---------------------------------------------------------------------------------
 
-		l8 = new JLabel("Graduação");
+		
+		l8 = new JLabel("Responsável");
 		l8.setForeground(Color.BLACK);
 		l8.setFont(new Font("futura", Font.BOLD, 20));
 		l8.setBounds(460, 300, 200, 30);
 		l8.setForeground(Color.WHITE);
 		jp.add(l8);
 
-		c1 = new JComboBox<String>(new String[] { "", "Bacharelado", "Licenciatura", "Tecnólogo" });
-		c1.setBounds(620, 300, 180, 30);
-		c1.setForeground(Color.WHITE);
-		c1.setBackground(new Color(28, 28, 28));
-		c1.setBorder(new LineBorder(new Color(97, 97, 97), 1));
-		jp.add(c1);
-		c1.setRenderer(new DefaultListCellRenderer() {
-			private static final long serialVersionUID = 1L;
-
+		t10 = new JTextField("Nome completo");
+		t10.setForeground(Color.GRAY);
+		t10.setBackground(new Color(28, 28, 28));
+		t10.setBounds(620, 300, 180, 30);
+		t10.setBorder(new LineBorder(new Color(97, 97, 97), 1));
+		t10.setCaretColor(new Color(98, 0, 238));
+		jp.add(t10);
+		t10.addFocusListener(new FocusListener() {
 			@Override
-			public void paint(Graphics g) {
-				setBackground(new Color(28, 28, 28));
-				setForeground(Color.WHITE);
-				super.paint(g);
+			public void focusGained(FocusEvent e) {
+				if (t10.getText().equals("Nome completo")) {
+					t10.setText("");
+					t10.setForeground(Color.WHITE);
+				}
 			}
-		});
-
-		// ---------------------------------------------------------------------------------
-
-		l9 = new JLabel("Matéria");
-		l9.setForeground(Color.BLACK);
-		l9.setFont(new Font("futura", Font.BOLD, 20));
-		l9.setBounds(60, 350, 100, 30);
-		l9.setForeground(Color.WHITE);
-		jp.add(l9);
-
-		c2 = new JComboBox<String>(new String[] { "Português", "Matemática", "História", "Geografia", "Química",
-				"Física", "Artes", "Educação Física", "Inglês", "Espanhol", "Sociologia", "Filosofia", "Informática" });
-		c2.setSelectedIndex(-1);
-		c2.setBounds(200, 350, 180, 30);
-		c2.setForeground(Color.WHITE);
-		c2.setBackground(new Color(28, 28, 28));
-		c2.setBorder(new LineBorder(new Color(97, 97, 97), 1));
-		jp.add(c2);
-		c2.setRenderer(new DefaultListCellRenderer() {
-			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void paint(Graphics g) {
-				setBackground(new Color(28, 28, 28));
-				setForeground(Color.WHITE);
-				super.paint(g);
+			public void focusLost(FocusEvent e) {
+				if (t10.getText().isEmpty()) {
+					t10.setForeground(Color.GRAY);
+					t10.setText("Nome completo");
+				}
 			}
 		});
 
@@ -317,15 +298,14 @@ public class AddTeacher extends JFrame implements ActionListener {
 
 		// ---------------------------------------------------------------------------------
 
-		l11 = new JLabel("Série(s)");
+		l11 = new JLabel("Série");
 		l11.setForeground(Color.BLACK);
 		l11.setFont(new Font("futura", Font.BOLD, 20));
 		l11.setBounds(60, 400, 100, 30);
 		l11.setForeground(Color.WHITE);
 		jp.add(l11);
 
-		c4 = new JComboBox<String>(new String[] { "1° Ano", "2° Ano", "3° Ano", "1° e 2° ano", "1° e 3° ano",
-				"2° e 3° ano", "1°, 2° e 3° ano" });
+		c4 = new JComboBox<String>(new String[] { "1° Ano", "2° Ano", "3° Ano" });
 		c4.setBounds(200, 400, 180, 30);
 		c4.setForeground(Color.WHITE);
 		c4.setBackground(new Color(28, 28, 28));
@@ -344,10 +324,10 @@ public class AddTeacher extends JFrame implements ActionListener {
 
 		// ---------------------------------------------------------------------------------
 
-		l12 = new JLabel("Turma(s)");
+		l12 = new JLabel("Turma");
 		l12.setForeground(Color.BLACK);
 		l12.setFont(new Font("futura", Font.BOLD, 20));
-		l12.setBounds(460, 400, 200, 30);
+		l12.setBounds(60, 350, 100, 30);
 		l12.setForeground(Color.WHITE);
 		jp.add(l12);
 
@@ -356,7 +336,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 		t8.setBorder(new LineBorder(new Color(97, 97, 97), 1));
 		t8.setCaretColor(new Color(98, 0, 238));
 		t8.setBackground(new Color(28, 28, 28));
-		t8.setBounds(620, 400, 180, 30);
+		t8.setBounds(200, 350, 180, 30);
 		jp.add(t8);
 
 		// ---------------------------------------------------------------------------------
@@ -364,7 +344,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 		l8 = new JLabel("ID");
 		l8.setForeground(Color.BLACK);
 		l8.setFont(new Font("futura", Font.BOLD, 20));
-		l8.setBounds(60, 450, 200, 30);
+		l8.setBounds(460, 400, 200, 30);
 		l8.setForeground(Color.WHITE);
 		jp.add(l8);
 
@@ -374,7 +354,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 		t9.setBorder(new LineBorder(new Color(97, 97, 97), 1));
 		t9.setCaretColor(new Color(98, 0, 238));
 		t9.setBackground(new Color(28, 28, 28));
-		t9.setBounds(200, 450, 180, 30);
+		t9.setBounds(620, 400, 180, 30);
 		jp.add(t9);
 
 		// ---------------------------------------------------------------------------------
@@ -430,28 +410,27 @@ public class AddTeacher extends JFrame implements ActionListener {
 			if (actionEvent.getSource() == b1) {
 				try {
 					String name = t1.getText();
+					String responsible_name = t10.getText();
 					String age = t2.getText();
 					String birthDate = t4.getText();
 					String address = t3.getText();
 					String phone = t5.getText();
 					String email = t6.getText();
+					String cpf = t7.getText();
+					String rollno = t9.getText();
 					String grade = (String) c4.getSelectedItem();
 					String classes = t8.getText();
-					String graduation = (String) c1.getSelectedItem();
-					String emp_id = t9.getText();
-					String subject = (String) c2.getSelectedItem();
 					String gender = (String) c3.getSelectedItem();
-					String cpf = t7.getText();
 					
 					Conn c = new Conn();
-					String query = "INSERT INTO teacher VALUES('" + name + "', '" 
-						+ age + "', '" + birthDate + "', '" + address + "', '" 
-						+ phone + "', '" + email + "', '" + grade + "', '" 
-						+ classes + "', '" + graduation + "', '" + emp_id + "', '" 
-						+ subject + "', '" + gender + "', '" + cpf + "')";
+					String query = "INSERT INTO student VALUES('" + name + "', '" 
+						+ responsible_name + "', '" + age + "', '" + birthDate + "', '" 
+						+ address + "', '" + phone + "', '" + email + "', '" 
+						+ cpf + "', '" + rollno + "', '" + grade + "', '" 
+						+ classes + "', '" + gender + "')";
 					
 					c.st.executeUpdate(query);
-					JOptionPane.showMessageDialog(null, "Professor(a) adicionado(a) com sucesso!");
+					JOptionPane.showMessageDialog(null, "Aluno(a) adicionado(a) com sucesso!");
 					setVisible(false);
 					
 				}
@@ -473,7 +452,7 @@ public class AddTeacher extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddTeacher frame = new AddTeacher();
+					AddStudent frame = new AddStudent();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
